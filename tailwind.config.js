@@ -21,7 +21,7 @@ module.exports = {
                 'blue-hover':'#2879bd',
                 'yellow':'#ffc73c',
                 'red':'#ec454f',
-                'greed': '#1aab8b',
+                'green': '#1aab8b',
                 'purple': '#8b60ed',
             },
             maxWidth:{

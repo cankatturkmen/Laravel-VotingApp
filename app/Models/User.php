@@ -41,7 +41,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+
+
     public function ideas(){
         return $this->hasMany(Idea::class);
+    }
+    public function votes(){
+        return $this->belongsToMany(Idea::class,'votes');
+    }
+    public function getAvatar(){
+
+        $firstCharacter=$this->email[0];
+
+        if(is_numeric($firstCharacter)){
+            $integerToUse= ord(strtolower($firstCharacter))-21;
+
+        }
+        else{
+            $integerToUse= ord(strtolower($firstCharacter))-96;
+        }
+
+
+        return 'https://secure.gravatar.com/avatar/'
+        .md5($this->emails)
+        .'?s=200'
+        .' &d=mp';
     }
 }

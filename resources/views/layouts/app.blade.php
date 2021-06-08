@@ -42,7 +42,7 @@
                 </div>
             @endif
                 <a href="#">
-                    <img src="https://docs.appthemes.com/files/2011/08/gravatar-grey.jpg" 
+                    <img src="https://docs.appthemes.com/files/2011/08/gravatar-grey.jpg"
                     alt="avatar" class="w-10 h-10 rounded-full">
                 </a>
             </div>
@@ -59,40 +59,35 @@
             ">
                   <div class="text-center px-6 py-2 pt-6">
                       <h3 class="font-semibold text-base">Add an idea</h3>
-                      <p class="text-xs mt-4">Let us know what you would like to and we'll take a look over!</p>
+                      <p class="text-xs mt-4">
+                        @auth
+                        Let us know what you would like to and we'll take a look over!
+                        @else
+                        Please login to create an idea.
+                        @endauth
+                        </p>
                   </div>
-                  <form action="#" method="POST" class="space-y-4 px-4 py-6">
-                      <div>
-                          <input type="text" class="text-sm  border-none w-full bg-gray-100 rounded-xl
-                         placeholder-gray-900 px-4 py-2" placeholder="Your Idea">
-                        </div>
-                        <div>
-                            <select name="category_add" id="category_add" class="w-full bg-gray-100  text-sm rounded-xl border-none px-4 py-2">
-                                <option value="Category One">Category One</option>
-                                <option value="Category One">Category Two</option>
-                                <option value="Category One">Category Three</option>
-                                <option value="Category One">Category Four</option>
-            
-                            </select>
-                         </div>
-                         <div>
-                             <textarea name="idea" id="idea" cols="30" rows="4" class="w-full bg-gray-100 rounded-xl placeholder-gray-900 text-sm px-4 py-2 border-none" placeholder="Your Idea"></textarea>
-                         </div>
-                         <div class="flex items-center jutify-between space-x-3">
-                             <button type="button" class="flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200 font-semibold
-                              rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3">
-                              <svg class=" text-gray-600 h-6 w-6 transform -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                              </svg>
-                                 <span class="ml-2">Attach</span>
-                             </button>
-                             <button type="submit" class=" text-white flex items-center justify-center w-1/2 h-11 text-xs bg-blue font-semibold
-                             rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3">
-                          
-                                <span class="ml-2">Submit</span>
-                            </button>
-                         </div>
-                  </form>
+
+
+                  @auth
+                 <livewire:create-idea/>
+                @else
+                <div class="my-6 text-center">
+                    <a
+                    href={{ route('login') }}
+                     class=" inline-block  text-white  justify-center w-1/2 h-11 text-xs bg-blue font-semibold
+                           rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3">
+
+                              <span class="ml-2">Login</span>
+                    </a>
+                    <a href="{{ route('register') }}" class="inline-block mt-2 justify-center w-1/2 h-11 text-xs bg-gray-200 font-semibold
+                    rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3">
+
+                      Sign Up
+                     </a>
+                </div>
+                  @endauth
+
               </div>
             </div>
             <div class="w-full px-2 md:px-0 md:w-175">
@@ -110,7 +105,7 @@
                             pb-3 hover:border-blue">Implemented(87)</a></li>
                         <li ><a href="#"class="text-gray-400 transition duration-150 ease-in border-b-4
                             pb-3 hover:border-blue">Closed(87)</a></li>
-                 
+
                     </ul>
                 </nav>
                 <div class="mt-8">
