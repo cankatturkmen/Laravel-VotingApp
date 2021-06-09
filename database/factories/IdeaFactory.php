@@ -1,8 +1,11 @@
 <?php
 
 namespace Database\Factories;
+
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Idea;
+use App\Models\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class IdeaFactory extends Factory
@@ -23,11 +26,23 @@ class IdeaFactory extends Factory
     {
         return [
             //
-            'user_id'=> $this->faker->numberBetween(1,20),
-            'category_id'=> $this->faker->numberBetween(1,4),
-            'status_id'=> $this->faker->numberBetween(1,5),
+            'user_id'=> User::factory(),
+            'category_id'=> Category::factory(),
+            'status_id'=> Status::factory(),
             'title'=> ucwords($this->faker->word(4,true)),
             'description'=> $this->faker->paragraph(5),
         ];
+    }
+    public function existing()
+    {
+        return $this->state(function (array $attributes){
+            return [
+                //
+                'user_id'=> $this->faker->numberBetween(1,20),
+                'category_id'=> $this->faker->numberBetween(1,4),
+                'status_id'=> $this->faker->numberBetween(1,5),
+
+            ];
+        });
     }
 }

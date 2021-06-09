@@ -32,6 +32,7 @@ class IdeaStatusUpdatedMailable extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.idea-status-updated');
+        return $this->subject('An idea you voted for has a new status')
+        ->markdown('emails.idea-status-updated');
     }
 }
