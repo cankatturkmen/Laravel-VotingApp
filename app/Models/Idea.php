@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Exceptions\DuplicateVoteException;
+use App\Exceptions\VoteNotFoundException;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +12,8 @@ class Idea extends Model
 {
     use HasFactory,Sluggable;
 
+    //const CATEGORY_TUTORIAL_REQUESTS ='Tutorial Request';
+    //const CATEGORY_LARACASTS_FEATURE ='Laracasts Feature';
     protected $guarded =[];
 
     public function sluggable(): array
@@ -40,13 +44,20 @@ class Idea extends Model
             return false;
         }
 
+
         return Vote::where('user_id' , $user->id)
-        ->where('user_id',$this->id)
+        ->where('idea_id',$this->id)
         ->exists();
     }
 
     public function vote(User $user){
 
+
+        if($this->isVotedByUser($user)){
+            throw new DuplicateVoteException;
+        }
+
+        //$this->votes_count++;
         Vote::create([
             'idea_id'=> $this->id,
             'user_id'=> $user->id,
@@ -55,10 +66,18 @@ class Idea extends Model
     }// vote function thats creates  a vote that voted by user in the parameters
     public function removeVote(User $user){
 
-        Vote::where('idea_id',$this->id)
+
+        $voteToDelete =Vote::where('idea_id',$this->id)
         ->where('user_id',$user->id)
-        ->first()
-        ->delete();
+        ->first();
+        if($voteToDelete){
+            $voteToDelete ->delete();
+           // $this->votes_count--;
+        }
+        else{
+            throw new VoteNotFoundException;
+        }
+
 
     }// vote function thats deletes  a vote that voted by user in the parameters
 
