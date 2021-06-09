@@ -16,6 +16,12 @@
                      {{ $idea->title }}
                     </h4>
                     <div class="text gray-600 mt-3 ">
+                        @admin
+                        @if($idea->spam_reports >0)
+                            <div class=" text-red mb-2">Spam Reports: {{ $idea->spam_reports }}</div>
+                        @endif
+
+                        @endadmin
                         {{ $idea->description }}
                     </div>
                     <div class="flex flex-col md:flex-row items-center justify-between mt-6">
@@ -43,6 +49,9 @@
                             rounded-full text-center w-28 h-7 py-2 px-4">{{ $idea->status->name }}
 
                             </div>
+                            @auth
+
+
                             <div class="relative">
                                 <button
                                 @click="isOpen = !isOpen"
@@ -80,34 +89,55 @@
                                         </li>
                                     @endcan
 
-                                        <li><a href="#" class="hover:bg-gray-100 px-3 py-3 block transition duration-150 ease-in">Mark as spam</a></li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    @click.prevent="
+                                                        isOpen= false
+                                                        $dispatch('custom-show-mark-idea-as-spam-modal')
+                                                    "
+                                                    class="hover:bg-gray-100 px-3 py-3 block transition duration-150 ease-in">Mark as Spam</a>
+                                            </li>
+
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    @click.prevent="
+                                                        isOpen= false
+                                                        $dispatch('custom-show-mark-idea-as-not-spam-modal')
+                                                    "
+                                                    class="hover:bg-gray-100 px-3 py-3 block transition duration-150 ease-in">Mark as Not Spam</a>
+                                            </li>
+
+
 
                                 </ul>
                             </div>
-                            <div class="flex items-center md:hidden  mt-4 md:mt-0">
-                                <div class="bg-gray-100 text-center rounded-xl h-10 px-4 py-2 pr-8">
-                                    <div class="text-sm font-bold leading-none @if($hasVoted) text-blue @endif">
-                                        {{ $votesCount }}
-                                    </div>
-                                    <div class="text-xxs font-semibold leading-none text-gray-400">
-                                        Votes
-                                    </div>
-
+                            @endauth
+                        </div>
+                        <div class="flex items-center md:hidden  mt-4 md:mt-0">
+                            <div class="bg-gray-100 text-center rounded-xl h-10 px-4 py-2 pr-8">
+                                <div class="text-sm font-bold leading-none @if($hasVoted) text-blue @endif">
+                                    {{ $votesCount }}
                                 </div>
-                                @if($hasVoted)
-                                    <button
-                                    wire:click.prevent="vote"
-                                    class="w-20 bg-blue text-white border border-blue font-bold text-xxs uppercase
-                                    rounded-xl hover:bg-blue-hover trasition duration-150 ease-in px-4 py-3 -mx-5">Voted</button>
-                                @else
-                                    <button
-
-                                    wire:click.prevent="vote"
-                                    class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase
-                                    rounded-xl hover:border-gray-400 trasition duration-150 ease-in px-4 py-3 -mx-5">Vote</button>
-                                @endif
+                                <div class="text-xxs font-semibold leading-none text-gray-400">
+                                    Votes
+                                </div>
 
                             </div>
+                            @if($hasVoted)
+                                <button
+                                wire:click.prevent="vote"
+                                class="w-20 bg-blue text-white border border-blue font-bold text-xxs uppercase
+                                rounded-xl hover:bg-blue-hover trasition duration-150 ease-in px-4 py-3 -mx-5">Voted</button>
+                            @else
+                                <button
+
+                                wire:click.prevent="vote"
+                                class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase
+                                rounded-xl hover:border-gray-400 trasition duration-150 ease-in px-4 py-3 -mx-5">Vote</button>
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -158,12 +188,12 @@
                         </form>
                     </div>
             </div>
-            @auth
-                @if (auth()->user()->isAdmin())
-                    <livewire:set-status :idea="$idea" />
-                @endif
+            @admin
+                <livewire:set-status :idea="$idea" />
+            @endadmin
 
-            @endauth
+
+
 
         </div>
         <div class="hidden md:flex items-center space-x-3">
