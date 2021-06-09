@@ -9,7 +9,14 @@
    </div>
    <livewire:idea-show :idea='$idea' :votesCount="$votesCount"/>
    <!-- This example requires Tailwind CSS v2.0+ -->
-   <livewire:edit-idea />
+
+    @can('update',$idea)
+        <livewire:edit-idea :idea="$idea" />
+    @endcan
+
+    @can('delete',$idea)
+    <livewire:delete-idea :idea="$idea" />
+    @endcan
 
 <div class="comments-container relative space-y-6 md:ml-22 my-8 pt-4 mt-1">
     <div class="comment-container relative mt-4 bg-white rounded-xl flex" >
