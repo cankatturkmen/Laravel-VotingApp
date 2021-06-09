@@ -68,4 +68,8 @@ class User extends Authenticatable
         .'?s=200'
         .' &d=mp';
     }
+    public function isAdmin(){
+        return in_array($this->email,['efecankat.96@gmail.com','eturkme1@binghamton.edu',
+        'turkmenef@itu.edu.tr']);
+    }
 }

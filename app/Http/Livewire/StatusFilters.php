@@ -19,7 +19,7 @@ class StatusFilters extends Component
         //$this-> statusAllCount = Idea::count();
         //$this-> statusAllCount = Idea::where('status_id',1)->count();
         $this->statusCount= Status::getCount();
-        $this->status = request()->status ?? 'All';
+        // $this->status = request()->status ?? 'All';
         if(Route::currentRouteName() == 'idea.show'){
             $this->status = null;
 
