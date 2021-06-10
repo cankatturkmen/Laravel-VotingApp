@@ -1,4 +1,7 @@
 <x-app-layout>
+    <x-slot name="title">
+        {{ $idea->title }} | Laracasts Voting
+    </x-slot>
    <div>
        <a href="{{ $backUrl }}" class="flex items-center font-semibold hover:underline">
         <svg  class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -8,20 +11,10 @@
        </a>
    </div>
    <livewire:idea-show :idea='$idea' :votesCount="$votesCount"/>
-   <!-- This example requires Tailwind CSS v2.0+ -->
 
-    @can('update',$idea)
-        <livewire:edit-idea :idea="$idea" />
-    @endcan
+   <x-notification-success />
+   <x-modals-container :idea="$idea"/>
 
-    @can('delete',$idea)
-    <livewire:delete-idea :idea="$idea" />
-    @endcan
-
-    {{-- @can('markasspam',$idea) --}}
-    <livewire:mark-idea-as-spam :idea="$idea" />
-
-    <livewire:mark-idea-as-not-spam :idea="$idea" />
     {{-- @endcan --}}
 
 <div class="comments-container relative space-y-6 md:ml-22 my-8 pt-4 mt-1">
@@ -142,4 +135,5 @@
     </div><!-- end comment-container -->
 
 </div><!--comments container -->
+
 </x-app-layout>

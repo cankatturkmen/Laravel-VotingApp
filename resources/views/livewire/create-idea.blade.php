@@ -1,4 +1,4 @@
-<div>
+
     <form wire:submit.prevent="createIdea" action="#" method="POST" class="space-y-4 px-4 py-6">
         <div>
             <input wire:model.defer="title"type="text" class="text-sm  border-none w-full bg-gray-100 rounded-xl
@@ -41,7 +41,7 @@
                   <span class="ml-2">Submit</span>
               </button>
            </div>
-           <div>
+           {{-- <div>
                @if (session('success_message'))
                     <div
                     x-data="{isVisible:true}"
@@ -55,6 +55,7 @@
                         {{ session('success_message') }}
                     </div>
                @endif
-           </div>
+           </div> --}}
+
     </form>   {{-- Care about people's approval and you will be their prisoner. --}}
-</div>
+

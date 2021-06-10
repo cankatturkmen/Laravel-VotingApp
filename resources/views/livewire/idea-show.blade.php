@@ -89,25 +89,25 @@
                                         </li>
                                     @endcan
 
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    @click.prevent="
-                                                        isOpen= false
-                                                        $dispatch('custom-show-mark-idea-as-spam-modal')
-                                                    "
-                                                    class="hover:bg-gray-100 px-3 py-3 block transition duration-150 ease-in">Mark as Spam</a>
-                                            </li>
+                                        <li>
+                                            <a
+                                                href="#"
+                                                @click.prevent="
+                                                isOpen= false
+                                                $dispatch('custom-show-mark-idea-as-spam-modal')
+                                                "
+                                                class="hover:bg-gray-100 px-3 py-3 block transition duration-150 ease-in">Mark as Spam</a>
+                                        </li>
 
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    @click.prevent="
-                                                        isOpen= false
-                                                        $dispatch('custom-show-mark-idea-as-not-spam-modal')
-                                                    "
-                                                    class="hover:bg-gray-100 px-3 py-3 block transition duration-150 ease-in">Mark as Not Spam</a>
-                                            </li>
+                                        <li>
+                                            <a
+                                                href="#"
+                                                @click.prevent="
+                                                    isOpen= false
+                                                    $dispatch('custom-show-mark-idea-as-not-spam-modal')
+                                                "
+                                                class="hover:bg-gray-100 px-3 py-3 block transition duration-150 ease-in">Mark as Not Spam</a>
+                                        </li>
 
 
 
