@@ -1,10 +1,11 @@
 @props([
-    'event-to-open-modal',
-    'event-to-close-modal',
-    'modal-title',
-    'modal-description',
-    'modal-confirm-button-text',
-    'wire-click',
+    'eventToOpenModal' => null,
+    'livewireEventToOpenModal' => null,
+    'eventToCloseModal',
+    'modalTitle',
+    'modalDescription',
+    'modalConfirmButtonText',
+    'wireClick',
 ]) {{-- doesnt need probs these are here to show names that are used --}}
 <div
 x-cloak
@@ -16,7 +17,7 @@ x-show="isOpen"
     $nextTick(()=>$refs.confirmButton.focus())
     "
 x-init="
-    window.livewire.on('{{ $eventToCloseModal }}', ()=>{isOpen= false})
+    Livewire.on('{{ $eventToCloseModal }}', ()=>{isOpen= false})
 "
 class="fixed z-20 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 <div
