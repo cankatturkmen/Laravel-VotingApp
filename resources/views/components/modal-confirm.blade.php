@@ -1,22 +1,22 @@
-<x-modal-confirm
-    event-to-open-modal='custom-show-delete-modal'
-    event-to-close-modal="ideaWasDeleted"
-    modal-title="Delete Idea"
-    modal-description="Are you sure you want to delete this idea? This action cannot be undone."
-    modal-confirm-button-text="Delete"
-    wire-click="deleteIdea"
-/>
- {{-- <div
+@props([
+    'event-to-open-modal',
+    'event-to-close-modal',
+    'modal-title',
+    'modal-description',
+    'modal-confirm-button-text',
+    'wire-click',
+]) {{-- doesnt need probs these are here to show names that are used --}}
+<div
 x-cloak
 x-data="{ isOpen: false}"
 x-show="isOpen"
 @keydown.escape.window="isOpen = false"
-@custom-show-delete-modal.window="
+{{ '@'.$eventToOpenModal }}.window="
     isOpen=true
     $nextTick(()=>$refs.confirmButton.focus())
     "
 x-init="
-    window.livewire.on('ideaWasDeleted', ()=>{isOpen= false})
+    window.livewire.on('{{ $eventToCloseModal }}', ()=>{isOpen= false})
 "
 class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 <div
@@ -42,11 +42,11 @@ class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="d
             </div>
             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                Delete Idea
+                {{ $modalTitle }}
               </h3>
               <div class="mt-2">
                 <p class="text-sm text-gray-500">
-                    Are you sure you want to delete this idea? This action cannot be undone.
+                    {{ $modalDescription }}
                 </p>
               </div>
             </div>
@@ -56,12 +56,13 @@ class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="d
 
         class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
           <button
-          wire:click="deleteIdea"
+          wire:click="{{ $wireClick }}"
+
           x-ref="confirmButton"
           type="button" class="w-full inline-flex justify-center rounded-md border
           border-transparent shadow-sm px-4 py-2 bg-red text-base font-medium text-white hover:bg-gray-900
           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 sm:ml-3 sm:w-auto sm:text-sm">
-          Delete
+          {{ $modalConfirmButtonText }}
           </button>
           <button
           @click="isOpen = false"
@@ -75,4 +76,3 @@ class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="d
       </div>
     </div>
   </div>
- --}}
