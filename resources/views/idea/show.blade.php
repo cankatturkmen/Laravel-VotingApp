@@ -8,25 +8,10 @@
        </a>
    </div>
    <livewire:idea-show :idea='$idea' :votesCount="$votesCount"/>
-   <!-- This example requires Tailwind CSS v2.0+ -->
-
-    @can('update',$idea)
-        <livewire:edit-idea :idea="$idea" />
-    @endcan
-
-    @can('delete',$idea)
-    <livewire:delete-idea :idea="$idea" />
-    @endcan
-
-    {{-- @can('markasspam',$idea) --}}
-    @auth
-    <livewire:mark-idea-as-spam :idea="$idea" />
-    @endauth
 
 
-    @admin
-    <livewire:mark-idea-as-not-spam :idea="$idea" />
-    @endadmin
+   <x-notification-success />
+    <x-modals-container :idea="$idea"/>
     {{-- @endcan --}}
 
 <div class="comments-container relative space-y-6 md:ml-22 my-8 pt-4 mt-1">
